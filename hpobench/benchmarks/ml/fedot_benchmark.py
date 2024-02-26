@@ -31,6 +31,7 @@ from fedot.core.pipelines.pipeline_builder import PipelineBuilder
 
 __version__ = '0.0.1'
 
+
 def linear_pipeline():
     pipeline = PipelineBuilder().add_node('knn').add_node('rf').build()
     return pipeline
