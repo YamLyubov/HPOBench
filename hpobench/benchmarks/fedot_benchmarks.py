@@ -27,8 +27,13 @@ from hpobench.abstract_benchmark import AbstractBenchmark
 from hpobench.util.rng_helper import get_rng
 
 from hpobench.dependencies.ml.ml_benchmark_template import MLBenchmark
+from fedot.core.pipelines.pipeline_builder import PipelineBuilder
 
 __version__ = '0.0.1'
+
+def linear_pipeline():
+    pipeline = PipelineBuilder().add_node('knn').add_node('rf').build()
+    return pipeline
 
 
 class FedotBenchmark(MLBenchmark):
@@ -38,6 +43,7 @@ class FedotBenchmark(MLBenchmark):
                  valid_size: float = 0.33,
                  data_path: Union[str, None] = None,
                  pipeline: Pipeline = None):
+        pipeline = pipeline or linear_pipeline()
         self.init_pipeline = deepcopy(pipeline)
         self.pipeline = pipeline
         self.search_space = PipelineSearchSpace()
